@@ -34,7 +34,7 @@ function addTask(e) {
   e.preventDefault();
   // Create and append the new task to the DOM
   createTask(taskInput.value);
-  // Store in LS
+  // Store in Local Storage
   storeTaskInLocalStorage(taskInput.value);
   // Clear input
   taskInput.value = '';
@@ -49,7 +49,7 @@ function removeTask(e) {
   if (e.target.parentElement.classList.contains('delete-item')) {
     // Remove from the DOM
     task.remove();
-    // Remove from LS
+    // Remove from Local Storage
     removeTaskFromLocalStorage(task);
   }
 }
@@ -60,7 +60,7 @@ function clearTasks(e) {
   while (taskList.firstChild) {
     taskList.removeChild(taskList.firstChild);
   }
-  // Remove tasks from the LS
+  // Remove tasks from the Local Storage
   localStorage.clear();
   taskInput.focus();
 }
@@ -95,15 +95,9 @@ function createTask(task) {
   taskList.appendChild(li);
 }
 
-// Store Task from LS
+// Store Task from Local Storage
 function storeTaskInLocalStorage(task) {
   let tasks = getLocalStorage();
-  // if there is not tasks yet, initialize
-  if(!localStorage.getItem('tasks')) {
-    tasks = [];
-  } else {
-    tasks = JSON.parse(localStorage.getItem('tasks'));
-  }
   tasks.push(task);
   // save the new task
   localStorage.setItem('tasks', JSON.stringify(tasks));
@@ -121,7 +115,7 @@ function getLocalStorage() {
   return tasks;
 }
 
-// Remove Task from LS
+// Remove Task from Local Storage
 function removeTaskFromLocalStorage(taskToRemove) {
   let tasks = getLocalStorage();
   // loop through the tasks list and remove the task
